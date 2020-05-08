@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.active{
+				color: red;
+				}
+		</style>
+	</head>
+	<body>
+		
+		<div id="app">
+			mustache语法：
+		<div>{{message}}</div>
+		<div>mustache{{message}}  {{message}}</div>
+		<div>mustache{{count*2}}</div>
+		<div>{{count}}</div>
+		<button v-on:click="add()">+</button>
+		<button v-on:click="sub()">-</button>
+		<div v-once>{{once}}</div>
+		<div v-html="html">{{html}}</div>
+		<div v-text="message">你好</div>
+		<div v-pre>{{message}}</div>
+		<div v-cloak>{{message}}</div>
+		
+		
+		<img    v-bind:src="url"    height="100px;" width="100px"/>
+		<img    :src="url"    height="100px;" width="100px"/>
+		
+		<!-- 语法糖 -->
+		<a :href="ahref">百度一下</a>
+		
+		<h1 class="active">{{message}}</h1>
+		<h1 :class="active">{{message}}</h1>
+		
+		
+		<!-- <h1 :class="{类名:true,类名:false}">{{message}}</h1> -->
+		
+		<h1  class="title" :class="{active:isActive,line:isLine}">{{message}}</h1>
+		<button v-on:click="btnclick();">按钮</button>
+		
+		
+		<h1  class="title" :class="getClasses()">{{message}}</h1>
+		
+		
+		<h1  class="title" :class="[active]">数组</h1>
+		
+		
+		<ul>
+			<li v-for="(item,index) in movies">{{index}}-{{item}}</li>
+		</ul>
+		
+		
+	<!-- 	<nav :style="{属性名:value(属性值)}">{{message}} </nav> -->
+		<nav :style="{fontSize:'50px'}">{{message}} </nav>
+		<nav :style="{fontSize:fontSizes, color:fianlcolor}">{{message}} </nav>
+		<nav :style="getStyle()">{{message}} </nav>
+		
+		
+		
+		<h1 :style="[basestyle]">数组style</h1>
+		
+		
+		<!-- //计算属性 -->
+	     <h1>{{getmon()}}</h1>
+		 
+		 <h1>{{fainal}}</h1>
+		 
+		 <h1>{{toalmoeny}}</h1>
+		</div>
+		
+		<script src="js/vue.js"></script>
+		<script >
+			var vue=new  Vue({
+				el:"#app",
+				data:{
+					//赋值
+					message:"holle  vue!!!",
+					count:0,
+					once:'once',
+					html:'<a href="https://www.bilibili.com">BIBI</a>',
+					
+					//绑定属性
+					url:'http://a3.att.hudong.com/14/75/01300000164186121366756803686.jpg',
+					ahref:'https://www.bilibili.com',
+					
+					//class
+					active:'active',
+					isActive:true,
+					isLine:true,
+					
+					//
+					movies:['火人','水人','土人','雷人'],
+					
+					//
+					fontSizes:'50px',
+					
+					fianlcolor:'red',
+					
+					basestyle:{fontSize:'1px'},
+					
+					books:[
+						{id:110,name:'办成语法',price:100},
+						{id:110,name:'办成语法',price:89},
+						{id:110,name:'办成语法',price:120},
+						{id:110,name:'办成语法',price:150},
+					]
+				},
+				beforeCreate:function() {
+					console.log("beforeCreate")
+				},
+				created:function() {
+					console.log("created")
+				},
+				mounted:function() {
+					console.log("mounted")
+				},
+				methods:{
+					add:function(){
+						this.count++;
+					},
+					sub:function(){
+						this.count--;
+					},
+					btnclick:function(){
+					this.isActive=!this.isActive	
+					},
+					getClasses:function(){
+						return    {active:this.isActive,line:this.isLine};
+					},
+					getStyle:function(){
+						return  {fontSize:this.fontSizes, color:this.fianlcolor};
+					},
+					getmon:function(){
+						return    this.message+' '+this.once
+					}
+				},
+				computed:{
+					fainal:function(){
+						return    this.message+' '+this.once
+					},
+					toalmoeny:function(){
+						let result=0
+						for(let i=0;i< this.books.length;i++){
+							  result+=this.books[i].price
+							}
+						//es6语法
+						for(let i in this.books){
+							console.log(i)
+							}
+						for(let book  of  this.books){
+							 console.log(book)
+							}
+					    return  result
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

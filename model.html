@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+			<input  v-model="message" />   {{message}}
+			<br />
+			<label for="famale">
+				<input type="radio"  name='sex1' id='famale' v-model='sex' value="男"> 男</input>
+			</label>
+			<label for="male">
+				<input  type="radio" name='sex1' id='male' v-model='sex' value="女"> 女</input>
+			</label>
+			<br />
+			您选择的性别是{{sex}}
+			<br />
+			
+			<label for="agress">
+				<input  type="checkbox"  id="agress"  v-model="isagress"/>同意协议
+			</label>
+			<br />
+			<button :disabled="!isagress">下一步</button>
+			<br />
+			
+			<label>
+				<input  type="checkbox" value="篮球"  v-model="likes">篮球
+				<input  type="checkbox" value="水球" v-model="likes">水球
+				<input  type="checkbox" value="火球" v-model="likes">火球
+				<input  type="checkbox" value="冰球" v-model="likes">冰球
+				<br />
+				 爱好是{{likes}}
+			</label>
+			<br />
+			
+			<select  name="sg"  id=""  v-model="fruit">
+				<option value="香蕉">香蕉</option>
+				<option value="苹果">苹果</option>
+				<option value="橘子">橘子</option>
+				<option value="梨">犁</option>
+				
+			</select>
+			选择的水果是{{fruit}}
+			
+			<br />
+			
+			<select  name="sg"  id=""  v-model="fruits" multiple>
+				<option value="香蕉">香蕉</option>
+				<option value="苹果">苹果</option>
+				<option value="橘子">橘子</option>
+				<option value="梨">犁</option>
+				
+			</select>
+			选择的水果是{{fruits}}
+			
+			
+			<br />
+			<label v-for="item  in  sprints" :for="item">
+				<input  type="checkbox"   :value="item"   :id="item"   v-model="sprint">{{item}}
+			</label>			
+			选择的运动是{{sprint}}
+			
+			
+			<br />
+			修饰符
+			<!-- lazy  懒加载 -->
+			<input type="text" v-model="model"  >
+			{{model}}
+			<input type="text" v-model.lazy="lazy"  >
+			{{lazy}}
+			
+			
+			<!--  number   -->
+			<input  type="number" v-model.number='age'>
+			<h1>{{typeof age}}</h1>
+			
+			
+			<!--  trim -->
+			<input type="text"  v-model.trim="name">
+			您输入的名字{{name}}
+			
+		</div>
+		<script>
+			new Vue({
+				el:'#app',
+				data:{
+					message:'',
+					sex:'',
+					isagress:false,
+					likes:[],
+					fruit:'香蕉',
+					fruits:[],
+					sprint:[],
+					sprints:['篮球','足球','乒乓球','羽毛球','高尔夫','排球','台球','跑步','垒球','拔河','荡秋千'],
+					model:'',
+					lazy:'',
+					age:'',
+					name:''
+					
+				}
+			})
+		</script>
+	</body>
+</html>

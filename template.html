@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		
+		
+		<div id="app">
+			
+			<mycnp></mycnp>
+			<mycnpjb></mycnpjb>
+		</div>
+		
+		<div id="app1">
+			
+			<mycnp></mycnp>
+			<!-- //无效 -->
+			<!-- <mycnpjb></mycnpjb> -->
+		</div>
+		
+		<script >
+			
+			//子组件
+			const cnp2=Vue.extend({
+			    template:`
+				<div> 
+				 <h1>我是子组件</h1>
+				 <p>我是内容哈哈哈</p>
+				 </div>
+				`
+			});
+			//创建构造器
+			const cnp=Vue.extend({
+			    template:`
+				<div> 
+				 <h1>我是标题</h1>
+				 <p>我是内容哈哈哈</p>
+				 <chcnp></chcnp>
+				 </div>
+				 
+				`,
+				components:{
+					chcnp:cnp2
+				}
+				
+			});
+			const cnp1=Vue.extend({
+			    template:`
+				<div> 
+				 <h1>我是局部标题</h1>
+				 <p>我是内容哈哈哈</p>
+				 </div>
+				 
+				`
+			});
+			
+			
+			//注册组件（全局组件）
+			Vue.component('mycnp',cnp);
+			
+			new Vue({
+				el:'#app',
+				data:{
+					
+				},
+				components:{
+					mycnpjb:cnp1
+				}
+			
+			})
+			
+			
+			new Vue({
+				el:'#app1',
+				data:{
+					
+				}
+			
+			})
+		</script>
+	</body>
+</html>

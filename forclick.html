@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>购物车</title>
+		<script src="js/vue.js"></script>
+		<style>
+					.define-table{
+						border-collapse:collapse;
+						border-spacing:0;
+						border-left:1px solid #888;
+						border-top:1px solid #888;
+					}
+					.define-table th,.define-table td{
+						border-right:1px solid #888;
+						border-bottom:1px solid #888;
+						padding:5px 15px;
+					}
+					.define-table th{
+						font-weight:bold;background:#ccc;
+					}	
+				</style>
+		
+			
+		
+	</head>
+	<body>
+		<div id="app">
+		<button v-on:click="alerts">提示</button>
+		
+		<button @click="alerts">提示</button>
+		
+		<button @click="alerts('abc')">提示</button>
+		
+		<button @click="alerts()">提示</button>
+		
+		<div v-if="books.length">
+		<table class="define-table" width="600" height="100">
+			<thead>
+				<th>序号</th>
+				<th>书名</th>
+				<th>作者</th>
+				<th>价格</th>
+				<th>个数</th>
+				<th>操作</th>
+			</thead>
+			<tbody>
+				<tr v-for="(items,index) in books">
+					 <td >{{items.id}}</td>
+					 <td >{{items.name}}</td>
+					 <td >{{items.author}}</td>
+					 <td >{{items.price | showPrice}}</td>
+					 <td >
+						 <button @click="cut(index)" v-bind:disabled="items.number<=1">-</button>
+					 {{items.number}}
+					     <button @click="add(index)">+</button>
+					 </td>
+					 <td >
+						 <button @click="remove(index)">移除</button>
+					 </td>
+					 
+				</tr>
+				
+				
+			</tbody>
+			
+			
+		</table>
+		<div>总计{{total | showPrice}}</div>
+		
+		</div>
+		<div v-else>购物车为空</div>
+		
+		</div>
+		<script >
+			new Vue({
+				el:'#app',
+				data:{
+					books:[
+						{
+							id:1,
+							name:'SSM',
+							author:'vue',
+							price:89,
+							number:2,
+						},
+						{
+							id:2,
+							name:'spring',
+							author:'vue',
+							price:98,
+							number:2,
+						},
+						{
+							id:3,
+							name:'redis',
+							author:'vue',
+							price:120,
+							number:2,
+						},
+						{
+							id:4,
+							name:'mybat',
+							author:'vue',
+							price:80,
+							number:2,
+						},
+						{
+							id:1,
+							name:'Vue',
+							author:'vue',
+							price:89,
+							number:2,
+						},
+					]
+					
+				},
+				//计算属性
+				computed:{
+					total:function(){
+						let totalresult=0
+						// 1.普通for循环
+						// for(let i=0;i<this.books.length;i++){
+						// 	console.log(this.books[i])
+						// 	totalresult+=this.books[i].price*this.books[i].number;
+						// 	}
+						//2.	in
+						// for(let  i  in  this.books){
+						// 	totalresult+=this.books[i].price*this.books[i].number
+						// }
+						//3.   of
+						 // for(let  book  of  this.books){
+							//    totalresult+=book.price*book.number
+						 // 	}
+						// 4.高阶函数
+							totalresult=this.books.reduce(function(m,n){
+								return  m+=n.price*n.number
+							},0)
+						//高阶.map循环
+						//高阶.filters 过滤
+						//5.便捷
+						//totalresult=this.books.reduce((m,n) = >m+n.price*n.number)
+						
+						 return  totalresult;
+						 }
+				},
+				filters:{
+				    showPrice(price){
+						return  "$"+price.toFixed(2)
+					}	
+				},
+				methods:{
+					alerts:function(event){
+						alert(event)
+						console.log(event)
+					},
+					add:function(index){
+						this.books[index].number++;
+					},
+					cut:function(index){
+						this.books[index].number--;
+					},
+					remove:function(index){
+						this.books.splice(index,1)
+						}
+				}
+			})
+			
+			
+		</script>
+	</body>
+</html>

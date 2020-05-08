@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<cpn></cpn>
+		</div>
+		
+		<template id="cnp">
+			<div>
+			<div> 我是子组件</div>
+			<button @click="btnclick()">点击$parent</button>
+			<ccnp></ccnp>
+			</div>
+		</template>
+		
+		<template id="ccnp">
+			<div>
+			<div> 我是子子组件</div>
+			<button @click="btnclick()">点击$parent</button>
+			</div>
+		</template>
+		
+		<script>
+			
+			new  Vue({
+				el:'#app',
+				data:{
+					message:'我是父组件'
+				},
+				methods:{
+					showmessage(){				   
+					 console.log('  父组件showmessage');
+					}
+					
+				},
+				components:{
+				   cpn:{
+					   template:'#cnp',
+					   data(){   
+						   return {
+							   name:"我是子组件的name"
+							   }
+						   },
+						   
+					   methods:{
+						   btnclick(){
+							   
+							   console.log(this.$parent.message);
+						   }
+					   },
+					   components:{
+						    ccnp:{
+								template:'#ccnp',
+								methods:{
+									
+									btnclick(){
+																   
+									console.log(this.$parent.name);
+									console.log(this.$root.message)
+									}
+								}
+						   }
+					
+				   }	
+				},
+				}
+			})
+				
+		
+		</script>
+	</body>
+</html>

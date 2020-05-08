@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>父传子</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			
+			<cnp v-bind:cmovies="movies"  :cmessage="message"  :cinfo="info">
+				
+			</cnp>
+			
+		</div>
+		
+		<template id='father'>
+			<div>
+			<!-- <p>{{cmovies}}</p> -->
+			<!-- <ul>
+				<li v-for=" item  in cmovies"> {{item}}</li>
+			</ul> -->
+			
+			<h1>{{cmessage}}</h1>
+			<h2>{{cinfo}}</h2>
+			
+			
+			</div>
+		</template>
+		
+		<script>
+			
+			const cnp={
+				  template:'#father',
+				  //1数组
+				  // props:  ['cmovies','cmessage'],
+				  //2类型限制
+				  // props:{
+					 //  cmovies:Array,
+					 //  cmessage:String
+				  //  },
+				   //3默认值
+				   props:{
+					    cmessage:{
+							type:String,
+							default:'',
+							required:true
+						}  ,
+						cinfo:{
+							type:Object,
+							default(){
+							   return {}
+							}
+						}
+				   },
+				  data(){
+					  return{
+						  
+					  }
+				   },
+				   methods:{
+					   
+				   }
+				   
+				}
+			
+               new Vue({
+				   el:'#app',
+				   data:{
+				      message:'哈哈哈',
+					  movies:['父','传','子','props'],
+					  info:{
+						  name:'xiaobai',
+						  age:'18岁',
+						  like:'篮球'
+					  }
+					},
+					components:{
+					   cnp	
+					}
+			   })
+		</script>
+	</body>
+</html>

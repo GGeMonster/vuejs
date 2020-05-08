@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div  id="app">
+		
+		<cpn>
+			<span slot='left'>标题</span>
+		</cpn>
+		
+		<cpn>
+			<span >标题</span>
+		</cpn>
+		</div>
+	   <template id="cpn">
+		   
+		   <div>
+			   <slot name="left">  <button>左边</button></slot>
+			   <slot name="center"> <button>中间</button></slot>
+			   <slot name="right">  <button>右边</button></slot>
+			   <slot>   哈哈哈哈</slot>
+		   </div>
+		   
+	   </template>
+	   
+	   <script >
+		     new  Vue({
+				 
+				 el:'#app',
+				 data:{
+					 message:'我是父级'
+				 },
+				 components:{
+					 cpn:{
+						 template:'#cpn'
+						 }
+					 
+				 }
+				 
+				 
+				 
+			 })
+		   
+	   </script>
+		</body>
+</html>

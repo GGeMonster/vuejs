@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>子传父</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 1父组件模板 -->
+		<div id="sonto">
+			
+			<cnp  @clicktt="clickttfather"></cnp>
+			
+		</div>
+		
+		<!-- 2子组件模板 -->
+		<template  id="son">
+			<div>
+				
+				<button v-for="item  in  list"
+				@click="itemclick(item)">
+				{{item.name}}
+				</button>
+			</div>			
+		</template>
+		
+		<script>
+			//子组件
+			const cnp={
+				template:'#son',
+				data(){
+					return{
+						list:[
+						{id:1,	name:'子'},
+						{id:2,	name:'传'},
+						{id:3,	name:'父'},
+						{id:4,	name:'事件'}
+							]
+					}
+				},
+					
+				methods:{
+					itemclick(item){
+						console.log('子组件发射参数')
+						console.log(item)
+						//子组件发射(事件+参数)
+						this.$emit('clicktt',item);
+					}
+				}
+				
+				
+			}
+			//父组件
+			 new Vue({
+				 el:'#sonto',
+				 data:{
+					 
+				  },
+				 components:{
+					cnp
+					
+				},
+				methods:{
+					clickttfather(item){
+						console.log('clickttfather')
+						console.log('父组件接收参数值')
+						console.log(item)
+						}
+					}
+			 })
+			
+		</script>
+	</body>
+</html>
